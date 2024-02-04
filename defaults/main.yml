@@ -1,0 +1,84 @@
+---
+# defaults file for revboot.cloudflare
+
+# do not require root privileges
+ansible_become: false # noqa: var-naming[no-role-prefix]
+
+# actions to take with possible values:
+# - facts
+# - zone
+# - dns
+cloudflare_action: [] # noqa: var-naming[no-role-prefix]
+
+# cloudflare authentication
+cloudflare_auth_account_name: '' # noqa: var-naming[no-role-prefix]
+cloudflare_auth_api_token: '' # noqa: var-naming[no-role-prefix]
+
+# cloudflare paging
+# https://developers.cloudflare.com/api/operations/zones-get
+cloudflare_zones_match: 'all' # noqa: var-naming[no-role-prefix]
+cloudflare_zones_page: 1 # noqa: var-naming[no-role-prefix]
+cloudflare_zones_per_page: 50 # noqa: var-naming[no-role-prefix]
+
+# cloudflare zone info
+# https://developers.cloudflare.com/api/operations/zones-0-get
+cloudflare_zone: # noqa: var-naming[no-role-prefix]
+  name: 'example.org'
+  network: []
+  ssl: []
+  security: []
+  scrape_shield: []
+  records: []
+
+# cloudflare zone defaults
+# https://developers.cloudflare.com/api/operations/zone-settings-get-all-zone-settings
+cloudflare_zone_defaults: # noqa: var-naming[no-role-prefix]
+  network:
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-i-pv6-setting
+    ipv6: false
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-web-sockets-setting
+    websockets: false
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-pseudo-i-pv4-setting
+    pseudo_ipv4: 'off'
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-ip-geolocation-setting
+    ip_geolocation: true
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-opportunistic-onion-setting
+    opportunistic_onion: false
+  ssl:
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-ssl-setting
+    mode: 'off'
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-always-use-https-setting
+    always_use_https: false
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-minimum-tls-version-setting
+    min_tls_version: 1.0
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-opportunistic-encryption-setting
+    opportunistic_encryption: true
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-automatic-https-rewrites-setting
+    automatic_https_rewrites: true
+  security:
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-security-level-setting
+    security_level: 'medium'
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-challenge-ttl-setting
+    challenge_ttl: 1800
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-browser-check-setting
+    browser_check: true
+  scrape_shield:
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-email-obfuscation-setting
+    email_obfuscation: true
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-server-side-exclude-setting
+    server_side_exclude: true
+    # https://developers.cloudflare.com/api/operations/zone-settings-change-hotlink-protection-setting
+    hotlink_protection: false
+
+# cloudflare dns defaults
+# https://developers.cloudflare.com/api/operations/dns-records-for-a-zone-list-dns-records
+# https://developers.cloudflare.com/api/operations/dns-records-for-a-zone-create-dns-record
+cloudflare_dns_defaults: # noqa: var-naming[no-role-prefix]
+  records:
+    - record: 'localhost'
+      type: 'A'
+      value: '127.0.0.1'
+      ttl: 3600
+      proxied: false
+      solo: true
+      state: 'present'

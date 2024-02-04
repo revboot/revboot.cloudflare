@@ -1,0 +1,15 @@
+---
+# tasks file for revboot.cloudflare
+
+- name: "Cloudflare Facts"
+  ansible.builtin.include_tasks: "facts.yml"
+
+- name: "Cloudflare Zone"
+  ansible.builtin.include_tasks: "zone.yml"
+  when:
+    - "'zone' in cloudflare_action"
+
+- name: "Cloudflare DNS"
+  ansible.builtin.include_tasks: "dns.yml"
+  when:
+    - "'dns' in cloudflare_action"

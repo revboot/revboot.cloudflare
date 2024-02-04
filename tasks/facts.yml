@@ -1,0 +1,70 @@
+---
+# facts file for revboot.cloudflare
+
+- name: "Cloudflare Facts | Get Zone Info"
+  ansible.builtin.include_role:
+    name: "linuxhq.cloudflare.zone_info"
+  vars:
+    cf_account_name: "{{ cloudflare_auth_account_name }}" # noqa: var-naming[no-role-prefix]
+    cf_auth_token: "{{ cloudflare_auth_api_token }}" # noqa: var-naming[no-role-prefix]
+    cf_zones_match: "{{ cloudflare_zones_match }}" # noqa: var-naming[no-role-prefix]
+    cf_zones_page: "{{ cloudflare_zones_page }}" # noqa: var-naming[no-role-prefix]
+    cf_zones_per_page: "{{ cloudflare_zones_per_page }}" # noqa: var-naming[no-role-prefix]
+
+- name: "Cloudflare Facts | Set variables for Zone"
+  ansible.builtin.set_fact:
+    cloudflare_zone_config:
+      network:
+        - zone_id: "{{ _cf_zone_id[cloudflare_zone.name] }}"
+          ipv6: "{{ cloudflare_zone.network.ipv6
+            | default(cloudflare_zone_defaults.network.ipv6) }}"
+          websockets: "{{ cloudflare_zone.network.websockets
+            | default(cloudflare_zone_defaults.network.websockets) }}"
+          pseudo_ipv4: "{{ cloudflare_zone.network.pseudo_ipv4
+            | default(cloudflare_zone_defaults.network.pseudo_ipv4) }}"
+          ip_geolocation: "{{ cloudflare_zone.network.ip_geolocation
+            | default(cloudflare_zone_defaults.network.ip_geolocation) }}"
+          opportunistic_onion: "{{ cloudflare_zone.network.opportunistic_onion
+            | default(cloudflare_zone_defaults.network.opportunistic_onion) }}"
+      ssl:
+        - zone_id: "{{ _cf_zone_id[cloudflare_zone.name] }}"
+          mode: "{{ cloudflare_zone.ssl.mode
+            | default(cloudflare_zone_defaults.ssl.mode) }}"
+          always_use_https: "{{ cloudflare_zone.ssl.always_use_https
+            | default(cloudflare_zone_defaults.ssl.always_use_https) }}"
+          min_tls_version: "{{ cloudflare_zone.ssl.min_tls_version
+            | default(cloudflare_zone_defaults.ssl.min_tls_version) }}"
+          opportunistic_encryption: "{{ cloudflare_zone.ssl.opportunistic_encryption
+            | default(cloudflare_zone_defaults.ssl.opportunistic_encryption) }}"
+          automatic_https_rewrites: "{{ cloudflare_zone.ssl.automatic_https_rewrites
+            | default(cloudflare_zone_defaults.ssl.automatic_https_rewrites) }}"
+      security:
+        - zone_id: "{{ _cf_zone_id[cloudflare_zone.name] }}"
+          security_level: "{{ cloudflare_zone.security.security_level
+            | default(cloudflare_zone_defaults.security.security_level) }}"
+          challenge_ttl: "{{ cloudflare_zone.security.challenge_ttl
+            | default(cloudflare_zone_defaults.security.challenge_ttl) }}"
+          browser_check: "{{ cloudflare_zone.security.browser_check
+            | default(cloudflare_zone_defaults.security.browser_check) }}"
+      scrape_shield:
+        - zone_id: "{{ _cf_zone_id[cloudflare_zone.name] }}"
+          email_obfuscation: "{{ cloudflare_zone.scrape_shield.email_obfuscation
+            | default(cloudflare_zone_defaults.scrape_shield.email_obfuscation) }}"
+          server_side_exclude: "{{ cloudflare_zone.scrape_shield.server_side_exclude
+            | default(cloudflare_zone_defaults.scrape_shield.server_side_exclude) }}"
+          hotlink_protection: "{{ cloudflare_zone.scrape_shield.hotlink_protection
+            | default(cloudflare_zone_defaults.scrape_shield.hotlink_protection) }}"
+
+- name: "Cloudflare Facts | Set variables for DNS"
+  ansible.builtin.set_fact:
+    cloudflare_dns_config:
+      - zone: "{{ cloudflare_zone.name }}"
+        records: "{{ cloudflare_dns_defaults.records
+          | ansible.builtin.union(cloudflare_zone.records) }}"
+
+- name: "Cloudflare Facts | Print variables"
+  ansible.builtin.debug:
+    msg:
+      - "{{ cloudflare_zone.name | default() }}"
+      - "{{ cloudflare_zone_config | default() }}"
+      - "{{ cloudflare_dns_config | default() }}"
