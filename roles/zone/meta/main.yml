@@ -1,7 +1,8 @@
 ---
 galaxy_info:
+  role_name: zone
   author: Luís Algarvio <luis.algarvio@revboot.com> https://lp.algarvio.org/
-  description: Handles Cloudflare resources.
+  description: Handles Cloudflare Zone settings.
   company: Revboot - Tecnologias de Informação e Comunicação, Lda.
 
   issue_tracker_url: https://github.com/revboot/revboot.cloudflare/issues
@@ -17,4 +18,5 @@ galaxy_info:
     - revboot
     - cloudflare
 
-dependencies: []
+dependencies:
+  - role: init

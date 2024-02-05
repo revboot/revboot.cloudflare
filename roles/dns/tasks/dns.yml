@@ -1,0 +1,13 @@
+---
+# dns file for revboot/cloudflare.dns
+
+- name: "Cloudflare DNS | Configure DNS records"
+  ansible.builtin.include_role:
+    name: "linuxhq.cloudflare.dns"
+  vars:
+    cf_account_name: "{{ cloudflare_auth_account_name }}" # noqa: var-naming[no-role-prefix]
+    cf_auth_token: "{{ cloudflare_auth_api_token }}" # noqa: var-naming[no-role-prefix]
+    cf_zones_match: "{{ cloudflare_zones_match }}" # noqa: var-naming[no-role-prefix]
+    cf_zones_page: "{{ cloudflare_zones_page }}" # noqa: var-naming[no-role-prefix]
+    cf_zones_per_page: "{{ cloudflare_zones_per_page }}" # noqa: var-naming[no-role-prefix]
+    cf_dns: "{{ cloudflare_dns_config }}" # noqa: var-naming[no-role-prefix]

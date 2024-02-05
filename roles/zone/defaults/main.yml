@@ -1,24 +1,8 @@
 ---
-# defaults file for revboot.cloudflare
+# defaults file for revboot/cloudflare.zone
 
 # do not require root privileges
 ansible_become: false # noqa: var-naming[no-role-prefix]
-
-# actions to take with possible values:
-# - facts
-# - zone
-# - dns
-cloudflare_action: [] # noqa: var-naming[no-role-prefix]
-
-# cloudflare authentication
-cloudflare_auth_account_name: '' # noqa: var-naming[no-role-prefix]
-cloudflare_auth_api_token: '' # noqa: var-naming[no-role-prefix]
-
-# cloudflare paging
-# https://developers.cloudflare.com/api/operations/zones-get
-cloudflare_zones_match: 'all' # noqa: var-naming[no-role-prefix]
-cloudflare_zones_page: 1 # noqa: var-naming[no-role-prefix]
-cloudflare_zones_per_page: 50 # noqa: var-naming[no-role-prefix]
 
 # cloudflare zone info
 # https://developers.cloudflare.com/api/operations/zones-0-get
@@ -28,7 +12,6 @@ cloudflare_zone: # noqa: var-naming[no-role-prefix]
   ssl: []
   security: []
   scrape_shield: []
-  records: []
 
 # cloudflare zone defaults
 # https://developers.cloudflare.com/api/operations/zone-settings-get-all-zone-settings
@@ -69,16 +52,3 @@ cloudflare_zone_defaults: # noqa: var-naming[no-role-prefix]
     server_side_exclude: true
     # https://developers.cloudflare.com/api/operations/zone-settings-change-hotlink-protection-setting
     hotlink_protection: false
-
-# cloudflare dns defaults
-# https://developers.cloudflare.com/api/operations/dns-records-for-a-zone-list-dns-records
-# https://developers.cloudflare.com/api/operations/dns-records-for-a-zone-create-dns-record
-cloudflare_dns_defaults: # noqa: var-naming[no-role-prefix]
-  records:
-    - record: 'localhost'
-      type: 'A'
-      value: '127.0.0.1'
-      ttl: 3600
-      proxied: false
-      solo: true
-      state: 'present'

@@ -1,0 +1,8 @@
+---
+# tasks file for revboot/cloudflare.init
+
+- name: "Cloudflare Facts"
+  ansible.builtin.include_tasks: "facts.yml"
+
+- name: "Cloudflare Create"
+  ansible.builtin.include_tasks: "create.yml"

@@ -1,9 +1,7 @@
-Revboot/Cloudflare Collection
-=============================
+Revboot/Cloudflare.Zone Role
+============================
 
-Manages Cloudflare resources.
-
-Currently supporting some Zone settings and DNS records.
+Manages Cloudflare Zone settings.
 
 Requirements
 ------------
@@ -30,36 +28,14 @@ more information.
 Example Playbook
 ----------------
 
-Initialization:
-```
-    - name: "Initialize Cloudflare playbook"
-      hosts: all
-      tasks:
-        - name: "Initialize Cloudflare with role revboot/cloudflare.init"
-          include_role:
-            name: revboot/cloudflare.init
-          vars:
-```
-
 Zone management:
 ```
-    - name: "Manage Cloudflare Zone settings playbook"
+    - name: "Manage Cloudflare Zone playbook"
       hosts: all
       tasks:
         - name: "Manage Cloudflare Zone settings with role revboot/cloudflare.zone"
           include_role:
             name: revboot/cloudflare.zone
-          vars:
-```
-
-DNS management:
-```
-    - name: "Manage Cloudflare DNS records playbook"
-      hosts: all
-      tasks:
-        - name: "Manage Cloudflare DNS records with role revboot/cloudflare.dns"
-          include_role:
-            name: revboot/cloudflare.dns
           vars:
 ```
 

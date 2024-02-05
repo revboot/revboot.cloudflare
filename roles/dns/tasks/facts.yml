@@ -1,0 +1,15 @@
+---
+# facts file for revboot/cloudflare.dns
+
+- name: "Cloudflare Facts | Set variables for DNS"
+  ansible.builtin.set_fact:
+    cloudflare_dns_config:
+      - zone: "{{ cloudflare_zone.name }}"
+        records: "{{ cloudflare_dns_defaults.records
+          | ansible.builtin.union(cloudflare_zone.records) }}"
+
+- name: "Cloudflare Facts | Print variables"
+  ansible.builtin.debug:
+    msg:
+      - "{{ cloudflare_zone.name | default() }}"
+      - "{{ cloudflare_dns_config | default() }}"

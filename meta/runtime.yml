@@ -1,0 +1,5 @@
+---
+### REQUIRED
+# The version of Ansible Core (ansible-core) required to use the collection.
+# Multiple versions can be separated with a comma.
+requires_ansible: ">=2.12.0,<2.13.0"

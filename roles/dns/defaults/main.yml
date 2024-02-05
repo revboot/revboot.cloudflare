@@ -1,0 +1,24 @@
+---
+# defaults file for revboot/cloudflare.dns
+
+# do not require root privileges
+ansible_become: false # noqa: var-naming[no-role-prefix]
+
+# cloudflare zone info
+# https://developers.cloudflare.com/api/operations/zones-0-get
+cloudflare_zone: # noqa: var-naming[no-role-prefix]
+  name: 'example.org'
+  records: []
+
+# cloudflare dns defaults
+# https://developers.cloudflare.com/api/operations/dns-records-for-a-zone-list-dns-records
+# https://developers.cloudflare.com/api/operations/dns-records-for-a-zone-create-dns-record
+cloudflare_dns_defaults: # noqa: var-naming[no-role-prefix]
+  records:
+    - record: 'localhost'
+      type: 'A'
+      value: '127.0.0.1'
+      ttl: 3600
+      proxied: false
+      solo: true
+      state: 'present'
