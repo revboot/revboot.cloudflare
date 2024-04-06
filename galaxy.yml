@@ -46,7 +46,7 @@ tags:
 # range specifiers can be set and are separated by ','
 dependencies:
   # https://galaxy.ansible.com/linuxhq.cloudflare
-  "linuxhq.cloudflare": ">=1.0.9,<1.1.10"
+  "linuxhq.cloudflare": ">=1.2.0,<1.3.0"
 
 # The URL of the originating SCM repository
 repository: https://github.com/revboot/cloudflare
