@@ -1,0 +1,33 @@
+---
+# template file for revboot/cloudflare.init
+
+- name: "Empty variables for Template"
+  ansible.builtin.set_fact:
+    cloudflare_template_config: []
+
+- name: "Set variables for Template"
+  ansible.builtin.set_fact:
+    cloudflare_template_config: "{{ ( cloudflare_template_config | default([]) )
+      | ansible.builtin.combine(lookup('ansible.builtin.vars', item),
+      list_merge='append', recursive=true) }}"
+  loop: "{{ cloudflare_zone.templates | default([]) }}"
+
+- name: "Set variables for Defaults"
+  ansible.builtin.set_fact:
+    cloudflare_zone_defaults:
+      network: "{{ cloudflare_template_config.network
+        | default(cloudflare_zone_defaults.network)
+        | default([]) }}"
+      ssl: "{{ cloudflare_template_config.ssl
+        | default(cloudflare_zone_defaults.ssl)
+        | default([]) }}"
+      security: "{{ cloudflare_template_config.security
+        | default(cloudflare_zone_defaults.security)
+        | default([]) }}"
+      scrape_shield: "{{ cloudflare_template_config.scrape_shield
+        | default(cloudflare_zone_defaults.scrape_shield)
+        | default([]) }}"
+    cloudflare_dns_defaults:
+      records: "{{ cloudflare_template_config.records
+        | default(cloudflare_dns_defaults.records)
+        | default([]) }}"

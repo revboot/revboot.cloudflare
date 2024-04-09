@@ -1,7 +1,7 @@
 Revboot/Cloudflare.Init Role
 ============================
 
-Initialization role (gets and creates zones).
+Initialization role (gets and creates zones; reads templates and sets defaults).
 
 Requirements
 ------------
