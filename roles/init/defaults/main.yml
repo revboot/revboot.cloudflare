@@ -10,6 +10,6 @@ cloudflare_auth_api_token: '' # noqa: var-naming[no-role-prefix]
 
 # cloudflare paging
 # https://developers.cloudflare.com/api/operations/zones-get
-cloudflare_zones_match: 'all' # noqa: var-naming[no-role-prefix]
-cloudflare_zones_page: 1 # noqa: var-naming[no-role-prefix]
-cloudflare_zones_per_page: 50 # noqa: var-naming[no-role-prefix]
+cloudflare_paging_match: 'all' # noqa: var-naming[no-role-prefix]
+cloudflare_paging_page_number: 1 # noqa: var-naming[no-role-prefix]
+cloudflare_paging_zones_per_page: 50 # noqa: var-naming[no-role-prefix]
