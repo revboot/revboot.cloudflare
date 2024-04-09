@@ -1,8 +1,8 @@
 ---
 # tasks file for revboot/cloudflare.dns
 
-- name: "Cloudflare Facts"
+- name: "Cloudflare DNS Facts"
   ansible.builtin.include_tasks: "facts.yml"
 
-- name: "Cloudflare DNS"
-  ansible.builtin.include_tasks: "dns.yml"
+- name: "Cloudflare DNS Records"
+  ansible.builtin.include_tasks: "records.yml"

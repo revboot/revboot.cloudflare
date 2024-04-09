@@ -1,8 +1,17 @@
 ---
 # tasks file for revboot/cloudflare.zone
 
-- name: "Cloudflare Facts"
+- name: "Cloudflare Zone Facts"
   ansible.builtin.include_tasks: "facts.yml"
 
-- name: "Cloudflare Zone"
-  ansible.builtin.include_tasks: "zone.yml"
+- name: "Cloudflare Zone Network Settings"
+  ansible.builtin.include_tasks: "network.yml"
+
+- name: "Cloudflare Zone SSL/TLS Settings"
+  ansible.builtin.include_tasks: "ssl.yml"
+
+- name: "Cloudflare Zone Security Settings"
+  ansible.builtin.include_tasks: "security.yml"
+
+- name: "Cloudflare Zone Scrape Shield Settings"
+  ansible.builtin.include_tasks: "scrape_shield.yml"

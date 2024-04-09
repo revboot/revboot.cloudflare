@@ -1,7 +1,7 @@
 ---
 # facts file for revboot/cloudflare.zone
 
-- name: "Cloudflare Facts | Set variables for Zone"
+- name: "Set variables for Zone"
   ansible.builtin.set_fact:
     cloudflare_zone_config:
       network:
@@ -45,7 +45,7 @@
           hotlink_protection: "{{ cloudflare_zone.scrape_shield.hotlink_protection
             | default(cloudflare_zone_defaults.scrape_shield.hotlink_protection) }}"
 
-- name: "Cloudflare Facts | Print variables"
+- name: "Print variables"
   ansible.builtin.debug:
     msg:
       - "{{ cloudflare_zone.name | default() }}"

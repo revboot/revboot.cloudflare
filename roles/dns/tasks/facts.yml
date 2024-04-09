@@ -1,14 +1,14 @@
 ---
 # facts file for revboot/cloudflare.dns
 
-- name: "Cloudflare Facts | Set variables for DNS"
+- name: "Set variables for DNS"
   ansible.builtin.set_fact:
     cloudflare_dns_config_merged:
       - zone: "{{ cloudflare_zone.name }}"
         records: "{{ cloudflare_dns_defaults.records
           | ansible.builtin.union(cloudflare_zone.records) }}"
 
-- name: "Cloudflare Facts | Replace '@' in DNS config"
+- name: "Replace '@' in DNS config"
   # NOTE: https://www.reddit.com/r/ansible/comments/11h0hp4/change_value_of_each_item_in_a_list_of_dicts/
   ansible.builtin.set_fact:
     cloudflare_dns_config:
@@ -32,7 +32,7 @@
             } {% if not loop.last %},{% endif %}
           {%- endfor -%}
 
-- name: "Cloudflare Facts | Print variables"
+- name: "Print variables"
   ansible.builtin.debug:
     msg:
       - "{{ cloudflare_zone.name | default() }}"

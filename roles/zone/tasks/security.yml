@@ -1,13 +1,13 @@
 ---
-# create file for revboot/cloudflare.init
+# security file for revboot/cloudflare.zone_settings
 
-- name: "Create Zone"
+- name: "Configure Security settings"
   ansible.builtin.include_role:
-    name: "linuxhq.cloudflare.zone"
+    name: "linuxhq.cloudflare.security"
   vars:
     cf_account_name: "{{ cloudflare_auth_account_name }}" # noqa: var-naming[no-role-prefix]
     cf_auth_token: "{{ cloudflare_auth_api_token }}" # noqa: var-naming[no-role-prefix]
     cf_zones_match: "{{ cloudflare_zones_match }}" # noqa: var-naming[no-role-prefix]
     cf_zones_page: "{{ cloudflare_zones_page }}" # noqa: var-naming[no-role-prefix]
     cf_zones_per_page: "{{ cloudflare_zones_per_page }}" # noqa: var-naming[no-role-prefix]
-    cf_zones: "[ {{ cloudflare_zone }} ]" # noqa: var-naming[no-role-prefix]
+    cf_security: "{{ cloudflare_zone_config.security }}" # noqa: var-naming[no-role-prefix]

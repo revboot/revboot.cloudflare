@@ -1,7 +1,7 @@
 ---
 # facts file for revboot/cloudflare.init
 
-- name: "Cloudflare Facts | Get Zone Info"
+- name: "Get Zone Info"
   ansible.builtin.include_role:
     name: "linuxhq.cloudflare.zone_info"
   vars:

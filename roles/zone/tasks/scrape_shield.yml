@@ -1,13 +1,13 @@
 ---
-# create file for revboot/cloudflare.init
+# scrape_shield file for revboot/cloudflare.zone_settings
 
-- name: "Create Zone"
+- name: "Configure Scrape Shield settings"
   ansible.builtin.include_role:
-    name: "linuxhq.cloudflare.zone"
+    name: "linuxhq.cloudflare.scrape_shield"
   vars:
     cf_account_name: "{{ cloudflare_auth_account_name }}" # noqa: var-naming[no-role-prefix]
     cf_auth_token: "{{ cloudflare_auth_api_token }}" # noqa: var-naming[no-role-prefix]
     cf_zones_match: "{{ cloudflare_zones_match }}" # noqa: var-naming[no-role-prefix]
     cf_zones_page: "{{ cloudflare_zones_page }}" # noqa: var-naming[no-role-prefix]
     cf_zones_per_page: "{{ cloudflare_zones_per_page }}" # noqa: var-naming[no-role-prefix]
-    cf_zones: "[ {{ cloudflare_zone }} ]" # noqa: var-naming[no-role-prefix]
+    cf_scrape_shield: "{{ cloudflare_zone_config.scrape_shield }}" # noqa: var-naming[no-role-prefix]
