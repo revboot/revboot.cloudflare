@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  role_name: ruleset
+  author: Luís Algarvio <luis.algarvio@revboot.com> https://lp.algarvio.org/
+  description: Handles Cloudflare Rulesets.
+  company: Revboot - Tecnologias de Informação e Comunicação, Lda.
+
+  issue_tracker_url: https://github.com/revboot/revboot.cloudflare/issues
+
+  license: GPL-2.0-or-later
+
+  min_ansible_version: "2.12"
+
+  platforms: []
+
+  galaxy_tags:
+    - networking
+    - revboot
+    - cloudflare
+
+dependencies:
+  - role: init

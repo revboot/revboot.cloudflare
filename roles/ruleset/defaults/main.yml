@@ -1,0 +1,29 @@
+---
+# defaults file for revboot/cloudflare.ruleset
+
+# do not require root privileges
+ansible_become: false # noqa: var-naming[no-role-prefix]
+
+# cloudflare zone info
+# https://developers.cloudflare.com/api/operations/zones-0-get
+cloudflare_zone: # noqa: var-naming[no-role-prefix]
+  name: 'example.org'
+  rulesets:
+    http_request_dynamic_redirect: []
+
+# cloudflare ruleset defaults
+# https://developers.cloudflare.com/api/operations/createZoneRulesetRule
+# https://developers.cloudflare.com/rules/url-forwarding/single-redirects/create-api/
+cloudflare_ruleset_defaults: # noqa: var-naming[no-role-prefix]
+  rulesets:
+    http_request_dynamic_redirect:
+      - action: 'redirect'
+        action_parameters:
+          from_value:
+            preserve_query_string: true
+            status_code: 301
+            target_url:
+              expression: 'concat("https://www.example.org/", http.request.uri.path)'
+        expression: '(http.host eq "www.example.com")'
+        description: 'example'
+        enabled: false

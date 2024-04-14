@@ -31,3 +31,7 @@
       records: "{{ cloudflare_template_config.records
         | default(cloudflare_dns_defaults.records)
         | default([]) }}"
+    cloudflare_ruleset_defaults:
+      rulesets: "{{ cloudflare_template_config.rulesets
+        | default(cloudflare_ruleset_defaults.rulesets)
+        | default([]) }}"

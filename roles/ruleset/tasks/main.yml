@@ -1,0 +1,8 @@
+---
+# tasks file for revboot/cloudflare.ruleset
+
+- name: "Cloudflare Ruleset Facts"
+  ansible.builtin.include_tasks: "facts.yml"
+
+- name: "Cloudflare Ruleset http_request_dynamic_redirect"
+  ansible.builtin.include_tasks: "http_request_dynamic_redirect.yml"
