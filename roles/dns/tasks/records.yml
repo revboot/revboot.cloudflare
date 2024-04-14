@@ -7,4 +7,6 @@
   vars:
     cf_account_name: "{{ cloudflare_auth_account_name }}" # noqa: var-naming[no-role-prefix]
     cf_auth_token: "{{ cloudflare_auth_api_token }}" # noqa: var-naming[no-role-prefix]
-    cf_dns: "{{ cloudflare_dns_config }}" # noqa: var-naming[no-role-prefix]
+    cf_dns: # noqa: var-naming[no-role-prefix]
+      - zone: "{{ cloudflare_zone.name }}"
+        records: "{{ cloudflare_dns_config.records }}"

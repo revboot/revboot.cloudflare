@@ -4,33 +4,31 @@
 - name: "Set variables for DNS"
   ansible.builtin.set_fact:
     cloudflare_dns_config_merged:
-      - zone: "{{ cloudflare_zone.name }}"
-        records: "{{ cloudflare_dns_defaults.records
-          | ansible.builtin.union(cloudflare_zone.records | default([])) }}"
+      records: "{{ cloudflare_dns_defaults.records
+        | ansible.builtin.union(cloudflare_zone.records | default([])) }}"
 
 - name: "Replace '@' in DNS config"
   # NOTE: https://www.reddit.com/r/ansible/comments/11h0hp4/change_value_of_each_item_in_a_list_of_dicts/
   ansible.builtin.set_fact:
     cloudflare_dns_config:
-      - zone: "{{ cloudflare_zone.name }}"
-        records: >-
-          {%- for item in cloudflare_dns_config_merged[0].records -%}
-            {
-              {%- for k, v in item.items() -%}
-                {% if k == 'value' %}
-                  "{{ k }}": "{{ v.strip('"').replace('{ @domain }', cloudflare_zone.name) }}"{% if not loop.last %},{% endif %}
+      records: >-
+        {%- for item in cloudflare_dns_config_merged.records -%}
+          {
+            {%- for k, v in item.items() -%}
+              {% if k == 'value' %}
+                "{{ k }}": "{{ v.strip('"').replace('{ @domain }', cloudflare_zone.name) }}"{% if not loop.last %},{% endif %}
+              {% else %}
+                {% if v | int %}
+                  "{{ k }}": {{ v }}{% if not loop.last %},{% endif %}
+                {% elif v == true or v == false %}
+                  "{{ k }}": {{ v }}{% if not loop.last %},{% endif %}
                 {% else %}
-                  {% if v | int %}
-                    "{{ k }}": {{ v }}{% if not loop.last %},{% endif %}
-                  {% elif v == true or v == false %}
-                    "{{ k }}": {{ v }}{% if not loop.last %},{% endif %}
-                  {% else %}
-                    "{{ k }}": "{{ v }}"{% if not loop.last %},{% endif %}
-                  {% endif %}
+                  "{{ k }}": "{{ v }}"{% if not loop.last %},{% endif %}
                 {% endif %}
-              {%- endfor -%}
-            } {% if not loop.last %},{% endif %}
-          {%- endfor -%}
+              {% endif %}
+            {%- endfor -%}
+          } {% if not loop.last %},{% endif %}
+        {%- endfor -%}
 
 - name: "Print variables"
   ansible.builtin.debug:
