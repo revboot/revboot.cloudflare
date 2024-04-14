@@ -6,7 +6,7 @@
     cloudflare_dns_config_merged:
       - zone: "{{ cloudflare_zone.name }}"
         records: "{{ cloudflare_dns_defaults.records
-          | ansible.builtin.union(cloudflare_zone.records) }}"
+          | ansible.builtin.union(cloudflare_zone.records | default([])) }}"
 
 - name: "Replace '@' in DNS config"
   # NOTE: https://www.reddit.com/r/ansible/comments/11h0hp4/change_value_of_each_item_in_a_list_of_dicts/
